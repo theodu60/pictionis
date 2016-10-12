@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_account"
     android:layout_width="match_parent"
@@ -10,13 +11,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="app.pictionis.com.pictionis.AccountActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+    </ImageView>
+
     <Button
         android:text="Log Out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="12dp"
         android:id="@+id/logOutBtn"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailTxt"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp" />
+
+    <Button
+        android:text="Join Game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/joinBtn"
+        android:layout_marginTop="127dp"
+        android:layout_below="@+id/emailTxt"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Create Game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/createBtn"
+        android:layout_below="@+id/joinBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
 </RelativeLayout>
