@@ -53,6 +53,7 @@ class CircleTransform implements Transformation {
 }
 public class AccountActivity extends AppCompatActivity {
     private Button mLogOutBtn;
+    private Button mCreateBtn;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -87,6 +88,15 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
+            }
+        });
+
+        mCreateBtn = (Button) findViewById(R.id.createBtn);
+
+        mCreateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AccountActivity.this, CreateActivity.class));
             }
         });
     }
