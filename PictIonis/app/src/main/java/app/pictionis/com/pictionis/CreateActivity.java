@@ -1,10 +1,12 @@
 package app.pictionis.com.pictionis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -17,10 +19,14 @@ public class CreateActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private FirebaseAuth firebaseAuth;
+    private Button mCancelBtn;
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mGameRef = mRootRef.child("Games");
     private FirebaseRecyclerAdapter<Users, MessageViewHolder> mFireBaseAdapter;
     Games game = new Games();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +75,15 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        mCancelBtn = (Button) findViewById(R.id.cancelBtn);
 
+        mCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGameRef.child(game.getMaster().getId()).removeValue();
+                startActivity(new Intent(CreateActivity.this, AccountActivity.class));
+            }
+        });
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
