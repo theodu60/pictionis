@@ -26,7 +26,7 @@ public class Users {
     public void setEmail(String email){
         this.email = email;
     }
-    public void getId(String id){
+    public void setId(String id){
         this.id = id;
     }
 }

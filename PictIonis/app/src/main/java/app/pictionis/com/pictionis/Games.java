@@ -9,6 +9,14 @@ import java.util.ArrayList;
 public class Games {
     private Users master;
     private ArrayList<Users> players = new ArrayList<Users>();
+
+    public Games(){
+
+    }
+    public Games(Users master, ArrayList<Users> players){
+        this.master = master;
+        this.players = players;
+    }
     public Users getMaster(){
         return this.master;
     }
