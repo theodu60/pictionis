@@ -10,27 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="app.pictionis.com.pictionis.CreateActivity">
 
-    <TextView
-        android:text="Vous êtes l'hôte de la partie"
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="add"
-        android:id="@+id/add_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_toStartOf="@+id/add_button"
-        android:layout_below="@+id/textView" />
+        android:id="@+id/recyclerView" />
     <Button
         android:text="Start"
         android:layout_width="wrap_content"

@@ -6,19 +6,27 @@ package app.pictionis.com.pictionis;
 
 public class Users {
     private String email;
-    private int id;
+    private String id;
 
-    private String getEmail(){
+
+    public  Users(){
+
+    }
+    public  Users(String email, String id){
+        this.email = email;
+        this.id = id;
+    }
+    public String getEmail(){
         return this.email;
     }
-    private int getId(){
+    public String getId(){
         return this.id;
     }
 
-    private void setEmail(String email){
+    public void setEmail(String email){
         this.email = email;
     }
-    private void getId(int id){
+    public void getId(String id){
         this.id = id;
     }
 }
