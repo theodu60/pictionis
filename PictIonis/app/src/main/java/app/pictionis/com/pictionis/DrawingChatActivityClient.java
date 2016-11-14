@@ -7,18 +7,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
-public class DrawingChatActivityClient extends AppCompatActivity {
+public class DrawingChatActivityClient extends AppCompatActivity{
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -27,10 +32,13 @@ public class DrawingChatActivityClient extends AppCompatActivity {
     private Button mSendBtn;
     private TextView mMessageText;
     private String GAME_ID;
+    private FirebaseRecyclerAdapter<Messages, ChatViewHolder> mFireBaseAdapter;
+    private FirebaseStorage storage;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mGameRef = mRootRef.child("Games");
-    private FirebaseRecyclerAdapter<Messages, ChatViewHolder> mFireBaseAdapter;
+    StorageReference storageRef = storage.getInstance().getReference();
     Games game = new Games();
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +51,7 @@ public class DrawingChatActivityClient extends AppCompatActivity {
 
         Intent intent = getIntent();
         GAME_ID = intent.getStringExtra("GAME_ID");
-
+        //DRAW
 
 
         //CREATION DANS GAME DE LA PARTIE
@@ -56,6 +64,8 @@ public class DrawingChatActivityClient extends AppCompatActivity {
 
                 Gson gson = new Gson();
                 game = gson.fromJson(snapshot.getValue().toString() , Games.class);
+
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -63,6 +73,41 @@ public class DrawingChatActivityClient extends AppCompatActivity {
             }
 
         });
+
+
+
+        imageView = (ImageView) this.findViewById(R.id.imageView1);
+
+
+        try {
+
+            System.out.println(imageView);
+            System.out.println(imageView);
+            System.out.println(imageView);
+            System.out.println(imageView);
+            System.out.println(imageView);
+            Glide.with(this /* context */)
+                    .using(new FirebaseImageLoader())
+                    .load(storageRef.child("images/" + GAME_ID+ ".jpg"))
+                    .into(imageView);
+
+        } catch (Exception e) {
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println(e);
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+            System.out.println("error");
+
+            e.printStackTrace();
+        }
+
         mFireBaseAdapter = new FirebaseRecyclerAdapter<Messages, ChatViewHolder>(
                 Messages.class,
                 R.layout.item_message,

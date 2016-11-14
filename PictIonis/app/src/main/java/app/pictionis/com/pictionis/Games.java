@@ -10,6 +10,7 @@ public class Games {
     private Users master;
     private ArrayList<Users> players = new ArrayList<Users>();
     private ArrayList<Messages> messages = new ArrayList<Messages>();
+    private String imgBase64;
 
     public Games(){
 
@@ -37,4 +38,11 @@ public class Games {
     public void setMessages(Messages message){
         this.messages.add(message);
     }
+    public String getImgBase64(){
+        return this.imgBase64;
+    }
+    public void setImgBase64(String imgBase64){
+        this.imgBase64 = imgBase64;
+    }
+
 }

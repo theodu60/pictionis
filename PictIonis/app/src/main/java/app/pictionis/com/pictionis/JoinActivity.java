@@ -20,6 +20,7 @@ public class JoinActivity extends AppCompatActivity {
     DatabaseReference mGameRef = mRootRef.child("Games");
     private FirebaseRecyclerAdapter<Object, JoinViewHolder> mFireBaseAdapter;
     Users currentUser = new Users();
+    Games game = new Games();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,6 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(JoinViewHolder joinViewHolder, Object model, int position) {
                 Gson gson = new Gson();
-                Games game = new Games();
                 game = gson.fromJson(model.toString() , Games.class);
                 joinViewHolder.mEmail.setText(game.getMaster().getEmail());
                 joinViewHolder.mId.setText(game.getMaster().getId());
