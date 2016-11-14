@@ -9,13 +9,15 @@ import java.util.ArrayList;
 public class Games {
     private Users master;
     private ArrayList<Users> players = new ArrayList<Users>();
+    private ArrayList<Messages> messages = new ArrayList<Messages>();
 
     public Games(){
 
     }
-    public Games(Users master, ArrayList<Users> players){
+    public Games(Users master, ArrayList<Users> players, ArrayList<Messages> messages){
         this.master = master;
         this.players = players;
+        this.messages = messages;
     }
     public Users getMaster(){
         return this.master;
@@ -28,5 +30,11 @@ public class Games {
     }
     public void setPlayers(Users player){
         this.players.add(player);
+    }
+    public ArrayList<Messages> getMessages(){
+        return this.messages;
+    }
+    public void setMessages(Messages message){
+        this.messages.add(message);
     }
 }

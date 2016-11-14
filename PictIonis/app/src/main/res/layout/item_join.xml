@@ -17,20 +17,26 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/email"
-                android:textSize="10sp"
                 android:layout_weight="0"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/message"
-                android:textSize="32sp"
+                android:id="@+id/idGame"
                 android:layout_weight="0"/>
+            <Button
+                android:text="Join This Game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/join" />
+
+
         </LinearLayout>
 
     </LinearLayout>

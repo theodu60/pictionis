@@ -11,11 +11,6 @@
     tools:context="app.pictionis.com.pictionis.CreateActivity">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerView" />
-
     <Button
         android:text="Start"
         android:layout_width="wrap_content"
@@ -31,4 +26,12 @@
         android:id="@+id/cancelBtn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
 </RelativeLayout>

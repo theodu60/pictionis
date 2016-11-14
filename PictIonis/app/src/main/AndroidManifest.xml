@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".AccountActivity" />
         <activity android:name=".CreateActivity" />
-        <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".JoinActivity" />
+        <activity android:name=".DrawingChatActivityMaster"></activity>
+        <activity android:name=".DrawingChatActivityClient"></activity>
     </application>
 
 </manifest>
