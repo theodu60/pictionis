@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.StringSignature;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
+
+import java.util.UUID;
 
 public class DrawingChatActivityClient extends AppCompatActivity{
 
@@ -63,7 +67,37 @@ public class DrawingChatActivityClient extends AppCompatActivity{
             public void onDataChange(DataSnapshot snapshot) {
 
                 Gson gson = new Gson();
-                game = gson.fromJson(snapshot.getValue().toString() , Games.class);
+
+                try {
+                    game = gson.fromJson(snapshot.getValue().toString() , Games.class);
+                    if (game.getImgBase64() == 100){
+                        Glide.with(DrawingChatActivityClient.this)
+                                .using(new FirebaseImageLoader())
+                                .load(storageRef.child("images/" + GAME_ID+ ".jpg"))
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .signature(new StringSignature(UUID.randomUUID().toString()))
+                                .into(imageView);
+
+                    }
+                } catch (Exception e) {
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println(e);
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+                    System.out.println("error");
+
+                    e.printStackTrace();
+                }
+
+
 
 
             }
@@ -80,31 +114,15 @@ public class DrawingChatActivityClient extends AppCompatActivity{
 
 
         try {
-
-            System.out.println(imageView);
-            System.out.println(imageView);
-            System.out.println(imageView);
-            System.out.println(imageView);
-            System.out.println(imageView);
             Glide.with(this /* context */)
                     .using(new FirebaseImageLoader())
                     .load(storageRef.child("images/" + GAME_ID+ ".jpg"))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .signature(new StringSignature(UUID.randomUUID().toString()))
                     .into(imageView);
 
         } catch (Exception e) {
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println(e);
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-            System.out.println("error");
-
             e.printStackTrace();
         }
 
@@ -144,19 +162,14 @@ public class DrawingChatActivityClient extends AppCompatActivity{
         mSendBtn = (Button) findViewById(R.id.sendBtn);
         mMessageText = (TextView) findViewById(R.id.messageText);
 
-        mCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mGameRef.child(game.getMaster().getId()).removeValue();
-                startActivity(new Intent(DrawingChatActivityClient.this, AccountActivity.class));
-            }
-        });
         mSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.setMessages(new Messages(game.getMaster().getEmail().toString(), mMessageText.getText().toString()));
-                mGameRef.child(GAME_ID).setValue(game);
-                mMessageText.setText("");
+                if (mMessageText.getText() != "") {
+                    game.setMessages(new Messages(game.getMaster().getEmail().toString(), mMessageText.getText().toString()));
+                    mGameRef.child(GAME_ID).setValue(game);
+                    mMessageText.setText("");
+                }
             }
         });
     }

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,11 +19,11 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -154,13 +153,17 @@ public class DrawingChatActivityMaster extends AppCompatActivity implements View
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    game.setImgBase64(progress);
+                    mGameRef.child(game.getMaster().getId()).setValue(game);
+
             }
+
         });
         return true;
     }
@@ -182,9 +185,12 @@ public class DrawingChatActivityMaster extends AppCompatActivity implements View
         mSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.setMessages(new Messages(game.getMaster().getEmail().toString(), mMessageText.getText().toString()));
-                mGameRef.child(game.getMaster().getId()).setValue(game);
-                mMessageText.setText("");
+                if (mMessageText.getText() != ""){
+                    game.setMessages(new Messages(game.getMaster().getEmail().toString(), mMessageText.getText().toString()));
+                    mGameRef.child(game.getMaster().getId()).setValue(game);
+                    mMessageText.setText("");
+                }
+
             }
         });
     }
