@@ -43,26 +43,7 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(JoinViewHolder joinViewHolder, Object model, int position) {
                 Gson gson = new Gson();
-                try {
-                    game = gson.fromJson(model.toString() , Games.class);
-                } catch (Exception e) {
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println(e);
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-                    System.out.println("error");
-
-                    e.printStackTrace();
-                }
-
-
+                game = gson.fromJson(model.toString() , Games.class);
                 joinViewHolder.mEmail.setText(game.getMaster().getEmail());
                 joinViewHolder.mId.setText(game.getMaster().getId());
             }

@@ -34,6 +34,7 @@ public class DrawingChatActivityMaster extends AppCompatActivity implements View
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private FirebaseAuth firebaseAuth;
+    private Button mCleanBtn;
     private Button mCancelBtn;
     private Button mSendBtn;
     private TextView mMessageText;
@@ -46,6 +47,9 @@ public class DrawingChatActivityMaster extends AppCompatActivity implements View
     float startY = 0;
     float endX = 0;
     float endY = 0;
+
+    float dw = 0;
+    float dh = 0;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mGameRef = mRootRef.child("Games");
     private FirebaseStorage storage;
@@ -71,8 +75,8 @@ public class DrawingChatActivityMaster extends AppCompatActivity implements View
 
         Display currentDisplay = getWindowManager().getDefaultDisplay();
 
-        float dw = currentDisplay.getWidth();
-        float dh = 500;
+       dw = currentDisplay.getWidth();
+       dh = 500;
 
         bitmap = Bitmap.createBitmap((int) dw, (int) dh,
                 Bitmap.Config.ARGB_8888);
@@ -172,9 +176,24 @@ public class DrawingChatActivityMaster extends AppCompatActivity implements View
         super.onStart();
 
         mCancelBtn = (Button) findViewById(R.id.cancelBtn);
+        mCleanBtn = (Button) findViewById(R.id.cleanBtn);
+
         mSendBtn = (Button) findViewById(R.id.sendBtn);
         mMessageText = (TextView) findViewById(R.id.messageText);
 
+        mCleanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bitmap = Bitmap.createBitmap((int) dw, (int) dh,
+                        Bitmap.Config.ARGB_8888);
+                canvas = new Canvas(bitmap);
+                paint = new Paint();
+                paint.setColor(Color.GREEN);
+                paint.setStrokeWidth((float) 10);
+                imageView.setImageBitmap(bitmap);
+
+            }
+        });
         mCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
